@@ -1,5 +1,6 @@
 package ru.IraGolubkova.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,10 +12,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class StepTwoPage extends BaseAuthorizedPage {
 
-    @FindBy(className = "checkout_summary_container")
-    private WebElement summaryInformation;
+    @FindBy(className = "summary_info_label")
+    WebElement summaryInformation;
     @FindBy(id = "finish")
-    private WebElement finishButton;
+    WebElement finishButton;
 
 
     public StepTwoPage(WebDriver driver) {
@@ -35,7 +36,17 @@ public class StepTwoPage extends BaseAuthorizedPage {
         finishButton.click();
         return new StepTwoPage(driver);
     }
+    public StepTwoPage checkLabelInformation() {
+        assertThat(summaryInformation.getText(), equalTo("Payment Information:"));
+        return this;
+    }
 
+    @Step("Завершаем")
+    public CheckoutCompletePage clickToFinishButton() {
+        finishButton.click();
+        return new CheckoutCompletePage(driver);
+
+    }
 }
 
 

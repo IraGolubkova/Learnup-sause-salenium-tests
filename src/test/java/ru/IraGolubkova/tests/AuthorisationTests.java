@@ -1,24 +1,21 @@
 package ru.IraGolubkova.tests;
 
+import io.qameta.allure.Feature;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.IraGolubkova.pages.*;
 
+@Severity(SeverityLevel.BLOCKER)
+@Feature("Тесты на авторизацию в системе")
+@Story("Тесты на авторизацию в системе")
 public class AuthorisationTests extends BaseTest {
-
-    static String username;
-    static String password;
-
-
-    @BeforeAll
-    static void beforeAll() {
-        username = properties.getProperty("standard.username");
-        password = properties.getProperty("standard.password");
-    }
 
     @Test
     void authorisationPositiveLoginPageTest() {
+        driver.get(baseUrl);
         new LoginPage(driver)
                 .enterLogin(username)
                 .enterPassword(password)
@@ -27,10 +24,13 @@ public class AuthorisationTests extends BaseTest {
                 .checkInventoryPageUrl()
                 .checkInventoryCartOnThePage()
                 .clickInventoryPageBackpack()
+                .checkInventoryRemoveBackpackButton()
                 .clickInventoryPageBasket();
         new CartPage(driver)
                 .checkCartPageBasketUrl()
                 .checkItemInTheCart()
+                .checkBikeLightInTheCart()
+                .checkBoltTShirtInTheCart()
                 .clickToCheckoutButton();
         new StepOnePage(driver)
                 .checkStepOnePageUrl()
@@ -47,7 +47,26 @@ public class AuthorisationTests extends BaseTest {
         new StepTwoPage(driver)
                 .checkStepTwoPageUrl()
                 .checkStepTwoPageInformation()
+                .checkLabelInformation()
                 .clickToStepTwoPageFinishButton();
+        new CheckoutCompletePage(driver)
+                .CheckTheTextOnThePage()
+                .checkCompletePageUrl();
+
+    }
+
+    @Test
+    void authorisationWithLoginPageNegativeTest() {
+        driver.get(baseUrl);
+        new LoginPage(driver)
+                .enterLogin(username + "1111")
+                .enterPassword(password)
+                .clickLoginButton();
+        new LoginPage(driver)
+                .checkErrorLogIn()
+                .cleaningAuthorization()
+                .checkLoginPageUrl();
+
     }
 
     @AfterAll

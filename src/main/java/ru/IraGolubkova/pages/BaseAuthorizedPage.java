@@ -1,12 +1,11 @@
 package ru.IraGolubkova.pages;
 
+import io.qameta.allure.Step;
 import org.hamcrest.CoreMatchers;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-
-import java.awt.*;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.not;
@@ -27,13 +26,13 @@ public class BaseAuthorizedPage extends BasePage {
     @FindBy(id = "inventory_sidebar_link")
     WebElement allItemsButton;
     @FindBy(id = "about_sidebar_link")
-     WebElement aboutButton;
+    WebElement aboutButton;
     @FindBy(id = "logout_sidebar_link")
-     WebElement logoutButton;
+    WebElement logoutButton;
     @FindBy(id = "reset_sidebar_link")
-     WebElement resetButton;
+    WebElement resetButton;
     @FindBy(id = "react-burger-cross-btn")
-     WebElement сrossButton;
+    WebElement сrossButton;
     //подвал
     @FindBy(css = ".social_twitter a")
     WebElement twitterButton;
@@ -63,7 +62,8 @@ public class BaseAuthorizedPage extends BasePage {
     }
 
     public BaseAuthorizedPage checkLogoLabel() {
-        assertThat(existsElement(), not(CoreMatchers.equalTo(0)));;
+        assertThat(existsElement(), not(CoreMatchers.equalTo(0)));
+        ;
         return this;
     }
 
@@ -177,4 +177,14 @@ public class BaseAuthorizedPage extends BasePage {
         logoutButton.click();
     }
 
+    @Step
+    public LoginPage logOut() {
+            sideMenuButton.click();
+            resetButton.click();
+            logoutButton.click();
+            return new LoginPage(driver);
+
+    }
 }
+
+

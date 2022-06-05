@@ -1,8 +1,9 @@
 package ru.IraGolubkova.tests;
 
+import io.qameta.allure.Feature;
 import org.junit.jupiter.api.Test;
 import ru.IraGolubkova.pages.LoginPage;
-
+@Feature("Тесты на подвал страницы")
 public class PageFooterTests extends BaseTest {
 
     @Test
