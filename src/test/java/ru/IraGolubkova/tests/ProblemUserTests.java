@@ -1,25 +1,28 @@
 package ru.IraGolubkova.tests;
 
-import io.qameta.allure.Feature;
-import io.qameta.allure.Severity;
-import io.qameta.allure.SeverityLevel;
-import io.qameta.allure.Story;
+
+import io.qameta.allure.*;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.IraGolubkova.pages.*;
 
-@Severity(SeverityLevel.BLOCKER)
-@Feature("Тесты на авторизацию в системе")
-@Story("Тесты на авторизацию в системе")
-public class AuthorisationTests extends BaseTest {
+@Severity(SeverityLevel.TRIVIAL)
+@Feature("Тесты на сортировку товаров на сайте https://www.saucedemo.com/ для обычного пользователя")
+@Story("Тесты на сортировку товаров на сайте https://www.saucedemo.com/ для обычного пользователя")
+@Epic("Обычный пользователь")
+public class ProblemUserTests extends BaseTest {
+
+    @BeforeAll
+    static void beforeSuit() {
+        new LoginPage(driver)
+                .enterLogin(problemUsername)
+                .enterPassword(problemPassword)
+                .clickLoginButton();
+    }
 
     @Test
-    void authorisationPositiveLoginPageTest() {
-        driver.get(baseUrl);
-        new LoginPage(driver)
-                .enterLogin(username)
-                .enterPassword(password)
-                .clickLoginButton();
+    void shouldOrder() {
         new InventoryPage(driver)
                 .checkInventoryPageUrl()
                 .checkInventoryCartOnThePage()
@@ -52,21 +55,6 @@ public class AuthorisationTests extends BaseTest {
         new CheckoutCompletePage(driver)
                 .CheckTheTextOnThePage()
                 .checkCompletePageUrl();
-
-    }
-
-    @Test
-    void authorisationWithLoginPageNegativeTest() {
-        driver.get(baseUrl);
-        new LoginPage(driver)
-                .enterLogin(username)
-                .enterPassword(password + "1111")
-                .clickLoginButton();
-        new LoginPage(driver)
-                .checkErrorLogIn()
-                .cleaningAuthorization()
-                .checkLoginPageUrl();
-
     }
 
     @AfterAll

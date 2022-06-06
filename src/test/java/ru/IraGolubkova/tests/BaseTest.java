@@ -29,8 +29,15 @@ public abstract class BaseTest {
     @Getter
     static String password;
     @Getter
-    static String defunctUsername;
-
+    static String notExistentUsername;
+    @Getter
+    static String lockedOutUsername;
+    @Getter
+    static String lockedOutPassword;
+    @Getter
+    static String problemUsername;
+    @Getter
+    static String problemPassword;
 
     @BeforeAll
     static void beforeAllTests() throws IOException {
@@ -39,7 +46,11 @@ public abstract class BaseTest {
         baseUrl = properties.getProperty("base.url");
         username = properties.getProperty("standard.username");
         password = properties.getProperty("standard.password");
-        defunctUsername = properties.getProperty("defunct.username");
+        lockedOutUsername = properties.getProperty("locked-out.username");
+        lockedOutPassword = properties.getProperty("locked-out.password");
+        problemUsername = properties.getProperty("problem.username");
+        problemPassword = properties.getProperty("problem.password");
+        notExistentUsername = properties.getProperty("not-existent.username");
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-notifications");

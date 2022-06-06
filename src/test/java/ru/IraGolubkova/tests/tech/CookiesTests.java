@@ -41,10 +41,13 @@ public class CookiesTests extends BaseTest {
     @Test
         // тест должен падать, так как мы подставляем сломанного пользователя
     void setCookiesTest() {
-        InventoryPage inventoryPage = new LoginPage(driver)
+        new LoginPage(driver)
                 .enterLogin(username)
                 .enterPassword(password)
                 .clickLoginButton();
+
+        InventoryPage inventoryPage = new InventoryPage(driver);
+
         driver.findElement(By.cssSelector("#add-to-cart-sauce-labs-backpack")).click();
         assertThat(inventoryPage.getShoppingCartBadge().getText(), equalTo("1"));
         driver.manage().deleteAllCookies();
@@ -58,7 +61,9 @@ public class CookiesTests extends BaseTest {
         new LoginPage(driver)
                 .enterLogin(username)
                 .enterPassword(password)
-                .clickLoginButton()
+                .clickLoginButton();
+
+        new InventoryPage(driver)
                 .chooseSortingOption(SortingDropDownValues.valueOf(String.valueOf(NAME_ASC)));
 
         List<String> listOfProductNames = driver.findElements(By.cssSelector(".inventory_item_name"))
@@ -67,11 +72,14 @@ public class CookiesTests extends BaseTest {
         logger.info("Тест на обнуление куки при входе с другим логином");
         logger.info("вход с  " + getDefunctUsername());
         logger.info("пароль " + getPassword());
-        InventoryPage inventoryPage = new LoginPage(getDriver())
+        new LoginPage(getDriver())
                 .enterLogin(getDefunctUsername())
                 .enterPassword(getPassword())
-                .clickLoginButton()
+                .clickLoginButton();
+
+        InventoryPage inventoryPage = new InventoryPage(driver)
                 .clickAddBackpackToCartButton();
+
         assertThat(inventoryPage.checkInventoryCartOnThePage(), equalTo("1"));
         getDriver().manage().deleteAllCookies();
         logger.info("вход с  " + getUsername());

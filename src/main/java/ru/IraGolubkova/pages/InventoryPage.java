@@ -41,6 +41,17 @@ public class InventoryPage extends BaseAuthorizedPage {
     WebElement itemBikeLight;
 
     @Getter
+    @FindBy(css = "#item_3_title_link")
+    WebElement itemTShirtRed;
+    @Getter
+    @FindBy(css = "#item_5_title_link")
+    WebElement itemSauceLabsFleeceJacket;
+    @Getter
+    @FindBy(css = "#item_2_title_link")
+    WebElement itemSauceLabsOnesie;
+
+
+    @Getter
     @FindBy(id = "add-to-cart-sauce-labs-backpack")
     WebElement addBackpackButton;
     @Getter
@@ -197,6 +208,9 @@ public class InventoryPage extends BaseAuthorizedPage {
                 .collect(Collectors.toList());
 
         List<String> listOfProductNamesTest = new ArrayList<>();
+        listOfProductNamesTest.add(itemTShirtRed.getAccessibleName());
+        listOfProductNamesTest.add(itemSauceLabsOnesie.getAccessibleName());
+        listOfProductNamesTest.add(itemSauceLabsFleeceJacket.getAccessibleName());
         listOfProductNamesTest.add(itemBoltTShirt.getAccessibleName());
         listOfProductNamesTest.add(itemBikeLight.getAccessibleName());
         listOfProductNamesTest.add(itemBackpack.getAccessibleName());
@@ -216,6 +230,9 @@ public class InventoryPage extends BaseAuthorizedPage {
         listOfProductNamesTest.add(itemBackpack.getAccessibleName());
         listOfProductNamesTest.add(itemBikeLight.getAccessibleName());
         listOfProductNamesTest.add(itemBoltTShirt.getAccessibleName());
+        listOfProductNamesTest.add(itemSauceLabsFleeceJacket.getAccessibleName());
+        listOfProductNamesTest.add(itemSauceLabsOnesie.getAccessibleName());
+        listOfProductNamesTest.add(itemTShirtRed.getAccessibleName());
 
 
         for (int i = 0; i < listOfProductNamesTest.size(); i++) {
@@ -224,15 +241,19 @@ public class InventoryPage extends BaseAuthorizedPage {
         return this;
     }
 
-    public InventoryPage checkToHighSorting() {
+    public InventoryPage checkLowToHighSorting() {
         List<String> listOfProductPrices = driver.findElements(By.cssSelector(".inventory_item_name"))
                 .stream().map(WebElement::getText)
                 .collect(Collectors.toList());
 
         List<String> listOfProductPricesTest = new ArrayList<>();
+        listOfProductPrices.add(itemSauceLabsFleeceJacket.getAccessibleName());
         listOfProductPrices.add(itemBackpack.getAccessibleName());
-        listOfProductPrices.add(itemBikeLight.getAccessibleName());
         listOfProductPrices.add(itemBoltTShirt.getAccessibleName());
+        listOfProductPrices.add(itemTShirtRed.getAccessibleName());
+        listOfProductPrices.add(itemBikeLight.getAccessibleName());
+        listOfProductPrices.add(itemSauceLabsOnesie.getAccessibleName());
+
 
 
         for (int i = 0; i < listOfProductPricesTest.size(); i++) {
@@ -241,15 +262,18 @@ public class InventoryPage extends BaseAuthorizedPage {
         return this;
     }
 
-    public InventoryPage checkToLowSorting() {
+    public InventoryPage checkHighToLowSorting() {
         List<String> listOfProductPrices = driver.findElements(By.cssSelector(".inventory_item_name"))
                 .stream().map(WebElement::getText)
                 .collect(Collectors.toList());
 
         List<String> listOfProductPricesTest = new ArrayList<>();
-        listOfProductPrices.add(itemBackpack.getAccessibleName());
+        listOfProductPrices.add(itemSauceLabsOnesie.getAccessibleName());
         listOfProductPrices.add(itemBikeLight.getAccessibleName());
+        listOfProductPrices.add(itemTShirtRed.getAccessibleName());
         listOfProductPrices.add(itemBoltTShirt.getAccessibleName());
+        listOfProductPrices.add(itemBackpack.getAccessibleName());
+        listOfProductPrices.add(itemSauceLabsFleeceJacket.getAccessibleName());
 
         for (int i = 0; i < listOfProductPricesTest.size(); i++) {
             assertThat(listOfProductPricesTest.get(i), equalTo(listOfProductPrices.get(i)));

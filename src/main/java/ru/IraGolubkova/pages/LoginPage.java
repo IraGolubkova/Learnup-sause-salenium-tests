@@ -43,9 +43,9 @@ public class LoginPage extends BasePage {
 
     }
     @Step("Нажимаем на кнопку 'Авторизоваться'")
-    public InventoryPage clickLoginButton() {
+    public LoginPage clickLoginButton() {
         driver.findElement(By.cssSelector("[data-test='login-button']")).click();
-        return new InventoryPage(driver);
+        return this;
     }
     @Step("Удаляем поля авторизации")
     public LoginPage cleaningAuthorization() {
@@ -60,8 +60,17 @@ public class LoginPage extends BasePage {
     }
 
     public LoginPage checkErrorLogIn() {
-        assertThat(driver.getCurrentUrl(), equalTo("https://www.saucedemo.com/"));
         assertThat(errorLogIn.getAccessibleName(), equalTo("Epic sadface: Username and password do not match any user in this service"));
+        return this;
+    }
+
+    public LoginPage checkPasswordIs(String expectedPassword) {
+        assertThat(passwordInput.getAttribute("value"), equalTo(expectedPassword));
+        return this;
+    }
+
+    public LoginPage checkLoginIs(String expectedLogin) {
+        assertThat(loginInput.getAttribute("value"), equalTo(expectedLogin));
         return this;
     }
 
