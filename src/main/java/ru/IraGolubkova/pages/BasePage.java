@@ -1,9 +1,10 @@
 package ru.IraGolubkova.pages;
 
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import java.time.Duration;
+import java.util.NoSuchElementException;
 
 import static org.openqa.selenium.support.PageFactory.initElements;
 
@@ -18,5 +19,14 @@ public abstract class BasePage {
                 .implicitlyWait(Duration.ofSeconds(4));
 
         initElements(this.driver, this);
+    }
+
+    public boolean existsElement(WebElement locator) {
+        try {
+            WebElement locator1 = locator;
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+        return true;
     }
 }
